@@ -1,0 +1,94 @@
+@font-face {
+    font-family: pixelated;
+    src: url("fonts/Press%20Start%202P/PressStart2P-Regular.ttf");
+}
+
+body {
+    font-size: 1.25em;
+    display: block;
+    position: relative;
+    font-family: sans-serif;
+    background-color:  tan;
+}
+
+#nojs {
+    background-color: red;
+    padding: 0.25em;
+    border-radius: 0.1em;
+}
+
+
+
+
+#calculator-body {
+    border: 0.25em solid black;
+    border-radius: 0.25em;
+    width: 20em;
+    padding: 0.75em;
+    background-color: lightgreen;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+}
+
+#calculator-display {
+    font-family: pixelated;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5em; 
+    text-align: right;
+    padding: 0.5em;
+    margin: 0.1em;
+    padding-bottom: 0.25em;
+    background-color: #484848;
+    color: white;
+    border-radius: 0.1em;
+}
+
+#calculator-numpad {
+    display: grid;
+    grid-template-rows: repeat(4, 3em);
+    grid-template-columns: repeat(5, 20%);
+    margin-top: 1em;
+}
+
+#calculator-numpad button {
+    font-size: 1.25em;
+    background-color: #202020;
+    color: white;
+    border: none;
+    margin: 0.1em;
+    border-radius: 0.1em;
+}
+
+#calculator-numpad button:hover {
+    width: 100%
+    height: 100%;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+#calculator-numpad button:active {
+    width: auto;
+    height: auto;
+    font-size: 1.25em;
+    margin: 0.1em;
+}
+
+#numpad-solve {
+    grid-area: 4 / 4 / 5 / 6;
+}
+
+
+
+.numpad-number {
+    background-color: #383838 !important;
+}
+
+.numpad-red {
+    background-color: darkred !important;
+}
+
+#numpad-solve {
+    background-color: #606060 !important;
+}
