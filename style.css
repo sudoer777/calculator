@@ -81,6 +81,16 @@ body {
 
 
 
+#top-display-line {
+    display: flex;
+}
+
+#input {
+    margin-left: auto;
+}
+
+
+
 .numpad-number {
     background-color: #383838 !important;
 }
