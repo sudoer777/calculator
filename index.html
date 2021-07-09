@@ -11,7 +11,10 @@
         </noscript>
         <div id="calculator-body">
             <div id="calculator-display">
-                <span id="input">0</span>
+                <div id="top-display-line">
+                    <span id="operation"></span>
+                    <span id="input">0</span>
+                </div>
                 <span id="answer"></span>
                 <noscript><span>ERROR</span></noscript>
             </div>
@@ -24,19 +27,21 @@
                 <button id="numpad-4" class="numpad-number">4</button>
                 <button id="numpad-5" class="numpad-number">5</button>
                 <button id="numpad-6" class="numpad-number">6</button>
-                <button id="numpad-add">+</button>
-                <button id="numpad-subtract">-</button>
+                <button id="numpad-add" class="numpad-operation">+</button>
+                <button id="numpad-subtract" class="numpad-operation">-</button>
                 <button id="numpad-1" class="numpad-number">1</button>
                 <button id="numpad-2" class="numpad-number">2</button>
                 <button id="numpad-3" class="numpad-number">3</button>
-                <button id="numpad-multiply">×</button>
-                <button id="numpad-divide">÷</button>
+                <button id="numpad-multiply" class="numpad-operation">×</button>
+                <button id="numpad-divide" class="numpad-operation">÷</button>
                 <button id="numpad-positivenegative">±</button>
                 <button id="numpad-0" class="numpad-number">0</button>
                 <button id="numpad-decimal">.</button>
                 <button id="numpad-solve">=</button>
             </div>
         </div>
+        <audio id="click-down-sound" src="sounds/ClickDown.mp3"></audio>
+        <audio id="click-up-sound" src="sounds/ClickUp.mp3"></audio>
         <script src="script.js"></script>
     </body>
 </html>
