@@ -103,3 +103,11 @@ body {
 #numpad-solve {
     background-color: #606060 !important;
 }
+
+
+
+footer {
+    font-size: 0.75em;
+    text-align: center;
+    margin-top: 1em;
+}
