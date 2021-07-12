@@ -63,16 +63,16 @@ function operate(symbol, a, b) {
 
 
 function checkOverflow(number) {
-    return number.length >= 10;
+    return String(number).length > 23;
 }
 
 
 function appendNumber(e) {
-    if(operation && !checkOverflow(number2)) {
+    if(operation && !checkOverflow(number2 + 1)) {
         number2 += this.textContent;
         inputDisplay.textContent = number2;
     }
-    else if(!checkOverflow(number1)) {
+    else if(!checkOverflow(number1 + 1)) {
         number1 += this.textContent;
         inputDisplay.textContent = number1;
     }
@@ -89,10 +89,12 @@ function applyOperation(e) {
 
 function solve(e) {
     if(number1 && number2) {
-        number1 = operate(operationDisplay.textContent, +number1, +number2);
+        number1 = String(operate(operationDisplay.textContent, +number1, +number2));
         number2 = '';
         operation = '';
+        
         inputDisplay.textContent = number1;
+
         operationDisplay.textContent = '';
     }
 }
