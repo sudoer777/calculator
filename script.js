@@ -26,13 +26,13 @@ Array.from(buttons).forEach(button => {
 
 const numberButtons = document.getElementsByClassName("numpad-number");
 Array.from(numberButtons).forEach(button => {
-    button.addEventListener("mousedown", appendNumber);
+    button.addEventListener("mousedown", appendClickedNumber);
 });
 
 
 const operationButtons = document.getElementsByClassName("numpad-operation");
 Array.from(operationButtons).forEach(button => {
-    button.addEventListener("mousedown", applyOperation);
+    button.addEventListener("mousedown", applyClickOperation);
 });
 
 
@@ -54,6 +54,11 @@ clearButton.addEventListener("mousedown", clearDisplay);
 
 const solveButton = document.getElementById("numpad-solve");
 solveButton.addEventListener("mousedown", solve);
+
+
+document.addEventListener("keydown", runKeyboardFunction);
+document.addEventListener("keydown", playDownClick);
+document.addEventListener("keyup", playUpClick);
 
 
 
@@ -86,25 +91,28 @@ function checkOverflow(number) {
 
 
 
-function appendNumber(e) {
+function appendNumber(number) {
     if(operation && !checkOverflow(+number2 + 1)) {
         if(number2 == "0") number2 = "";
-        number2 += this.textContent;
+        number2 += String(number);
         inputDisplay.textContent = number2;
     }
     else if(!checkOverflow(+number1 + 1)) {
         if(number1 == "0") number1 = "";
-        number1 += this.textContent;
+        number1 += String(number);
         inputDisplay.textContent = number1;
     }
 }
 
 
-function applyOperation(e) {
+function applyOperation(symbol) {
+    if(symbol == "*") symbol = "×";
+    else if(symbol == "/") symbol = "÷";
+
     if(number2) {
-        solve(e);
+        solve();
     }
-    operation = this.textContent;
+    operation = symbol;
     operationDisplay.textContent = operation;
 }
 
@@ -173,10 +181,36 @@ function solve(e) {
         number2 = '';
         operation = '';
 
+        // Workaround for computer rounding error
+        if(number1.length >= 18) {
+            number1 = Math.round(number1 * 1000000000000000) / 1000000000000000;
+        }
+
         inputDisplay.textContent = number1;
 
         operationDisplay.textContent = '';
     }
+}
+
+
+
+function runKeyboardFunction(e) {
+    if(!isNaN(+e.key)) appendNumber(e.key);
+    else if(e.key == '.') addDecimal();
+    else if(e.key == '+' || e.key == '-' || e.key == '*' || e.key == '/') applyOperation(e.key);
+    else if(e.key == '=' || e.keyCode == 13) solve();
+    else if(e.keyCode == 8) deleteNumber();
+    else if(e.keyCode == 46) clearDisplay();
+}
+
+
+function appendClickedNumber(e) {
+    appendNumber(this.textContent);
+}
+
+
+function applyClickOperation(e) {
+    applyOperation(this.textContent);
 }
 
 
