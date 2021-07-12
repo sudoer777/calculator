@@ -62,7 +62,7 @@ document.addEventListener("keyup", playUpClick);
 
 
 
-let number1 = '';
+let number1 = '0';
 let number2 = '';
 let operation = '';
 
@@ -166,7 +166,7 @@ function deleteNumber(e) {
 
 
 function clearDisplay(e) {
-    number1 = '';
+    number1 = '0';
     number2 = '';
     operation = '';
 
