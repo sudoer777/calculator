@@ -36,6 +36,22 @@ Array.from(operationButtons).forEach(button => {
 });
 
 
+const positiveNegativeButton = document.getElementById("numpad-positivenegative");
+positiveNegativeButton.addEventListener("mousedown", swapPositiveNegative);
+
+
+const decimalButton = document.getElementById("numpad-decimal");
+decimalButton.addEventListener("mousedown", addDecimal);
+
+
+const deleteButton = document.getElementById("numpad-delete");
+deleteButton.addEventListener("mousedown", deleteNumber);
+
+
+const clearButton = document.getElementById("numpad-clear");
+clearButton.addEventListener("mousedown", clearDisplay);
+
+
 const solveButton = document.getElementById("numpad-solve");
 solveButton.addEventListener("mousedown", solve);
 
@@ -63,16 +79,21 @@ function operate(symbol, a, b) {
 
 
 function checkOverflow(number) {
-    return String(number).length > 23;
+    return (String(number).length > 23)
+            || (String(number).indexOf("e") !== -1)
+            || isNaN(+number);
 }
 
 
+
 function appendNumber(e) {
-    if(operation && !checkOverflow(number2 + 1)) {
+    if(operation && !checkOverflow(+number2 + 1)) {
+        if(number2 == "0") number2 = "";
         number2 += this.textContent;
         inputDisplay.textContent = number2;
     }
-    else if(!checkOverflow(number1 + 1)) {
+    else if(!checkOverflow(+number1 + 1)) {
+        if(number1 == "0") number1 = "";
         number1 += this.textContent;
         inputDisplay.textContent = number1;
     }
@@ -80,10 +101,69 @@ function appendNumber(e) {
 
 
 function applyOperation(e) {
-    if(!number2) {
-        operation = this.textContent;
-        operationDisplay.textContent = operation;
+    if(number2) {
+        solve(e);
     }
+    operation = this.textContent;
+    operationDisplay.textContent = operation;
+}
+
+
+function swapPositiveNegative(e) {
+    if(operation) {
+        number2 = String(+number2 * -1);
+        inputDisplay.textContent = number2;
+    }
+    else {
+        number1 = String(+number1 * -1);
+        inputDisplay.textContent = number1;
+    }
+}
+
+
+function addDecimal(e) {
+    if(operation) {
+        if(!checkOverflow(number2) && number2.indexOf('.') === -1) {
+            if(!number2) number2 = "0";
+            number2 = number2 + '.';
+            inputDisplay.textContent = number2;
+        }
+    }
+    else {
+        if(!checkOverflow(number1) && number1.indexOf('.') === -1) {
+            if(!number1) number1 = "0";
+            number1 = number1 + '.';
+            inputDisplay.textContent = number1;
+        }
+    }
+}
+
+
+function deleteNumber(e) {
+    if(operation) {
+        if(number2 && !checkOverflow(number2)) {
+            number2 = number2.substring(0, number2.length - 1);
+            if(!number2 || isNaN(+number2)) number2 = "0";
+            inputDisplay.textContent = number2;
+        }
+    }
+    else {
+        if(number1 && !checkOverflow(number1)) {
+            number1 = number1.substring(0, number1.length - 1);
+            if(!number1 || isNaN(+number1)) number1 = "0";
+            inputDisplay.textContent = number1;
+        }
+    }
+}
+
+
+function clearDisplay(e) {
+    number1 = '';
+    number2 = '';
+    operation = '';
+
+    inputDisplay.textContent = '0';
+    operationDisplay.textContent = '';
 }
 
 
@@ -92,7 +172,7 @@ function solve(e) {
         number1 = String(operate(operationDisplay.textContent, +number1, +number2));
         number2 = '';
         operation = '';
-        
+
         inputDisplay.textContent = number1;
 
         operationDisplay.textContent = '';
