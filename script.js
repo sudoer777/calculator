@@ -92,12 +92,12 @@ function checkOverflow(number) {
 
 
 function appendNumber(number) {
-    if(operation && !checkOverflow(+number2 + 1)) {
+    if(operation && !checkOverflow(String(number2) + 1)) {
         if(number2 == "0") number2 = "";
         number2 += String(number);
         inputDisplay.textContent = number2;
     }
-    else if(!checkOverflow(+number1 + 1)) {
+    else if(!checkOverflow(String(number1) + 1)) {
         if(number1 == "0") number1 = "";
         number1 += String(number);
         inputDisplay.textContent = number1;
